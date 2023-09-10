@@ -1,0 +1,121 @@
+import Image from "next/image";
+import React from "react";
+import { FaGlobe } from "react-icons/fa";
+import {
+  MdOutlineEmojiEmotions,
+  MdOutlineGifBox,
+  MdOutlineImage,
+  MdOutlineSchedule,
+  MdOutlineLocationOn,
+  MdSyncAlt,
+} from "react-icons/md";
+import Post from "./Post";
+
+const Feed = () => {
+  return (
+    <div className="w-full   sm:px-0   lg:w-[61%] md:w-[80%]  sm:w-[97%]  h-full ">
+      <h1 className=" hidden sm:block font-semibold text-xl px-4  pt-4 ml-1 border-r border-dark">
+        Home
+      </h1>
+      <div className="flex  justify-around mt-14 sm:mt-6 border-b  border-r border-dark  sm:px-5 py-2">
+        <div className="selected-feed relative top-0 left-0 hover:bg-dark">
+          <h6 className="font-medium selected-feed-header">For you</h6>
+        </div>
+        <div className="following">
+          <h6 className="following-header font-semibold text-gray-500">
+            Following
+          </h6>
+        </div>
+      </div>
+
+      <div className="post-feed-container  border-r border-dark   border-b ">
+        <div className=" hidden sm:block px-4 py-2">
+          <div className="post-feed p-2 flex gap-2">
+            <Image
+              alt="profile"
+              src={"/abdou.jpg"}
+              width={60}
+              height={60}
+              className="sm:w-10 sm:h-10 w-7 object-center h-7 rounded-full"
+            />
+            <input
+              placeholder="What is happening?!"
+              className="text-gray-500 bg-inherit text-lg sm:text-xl outline-none flex-1 py-2"
+            />
+          </div>
+          <div className="post-feed-text mb-4  border-gray-600 text-primary sm:pl-4 mx-7  text-sm font-bold">
+            {/* <div className="py-3 flex items-center cursor-pointer gap-1">
+              <FaGlobe />{" "}
+              <span className="hover:w-[139px] hover:rounded-full px-1 hover:bg-primary-light">
+                Everyone can reply
+              </span>
+            </div> */}
+          </div>
+          <div className="post-icons flex items-center justify-between sm:mx-3 py-[12px] pl-6 sm:pl-7">
+            <div className="flex gap-2 ">
+              <MdOutlineImage
+                size={22}
+                className="text-primary cursor-pointer opacity-50"
+              />{" "}
+              <MdOutlineGifBox
+                size={22}
+                className="text-primary cursor-pointer opacity-50"
+              />
+              <MdSyncAlt
+                size={22}
+                className="text-primary cursor-pointer opacity-50"
+              />
+              <MdOutlineEmojiEmotions
+                size={22}
+                className="text-primary cursor-pointer opacity-50"
+              />
+              <MdOutlineSchedule
+                size={22}
+                className="text-primary cursor-pointer opacity-50"
+              />{" "}
+              <MdOutlineLocationOn
+                size={22}
+                className="text-primary cursor-pointer opacity-50"
+              />
+            </div>
+            <div className="">
+              <button className=" px-2 sm:px-4 py-1 rounded-full bg-primary opacity-30">
+                post
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 className="text-primary py-3 cursor-pointer  hover:bg-gray-950 border-b border-r border-dark text-center">
+        Show 100 Tweets
+      </h4>
+
+      <div className="sm:hidden py-6  px-[30px] border-b border-r  border-dark">
+        <h1 className="font-black text-[26px] leading-tight">
+          You may be missing out on ads revenue sharing!
+        </h1>
+
+        <p className="text-gray-500 mt-2">
+          if eligable, you must subscribe to X Premium to receive a share of ads
+          revenue
+        </p>
+
+        <p className="mt-5 text-gray-500">Sing up to X Premium to get access</p>
+        <div className="button mt-4">
+          <button className="bg-white px-6 py-3 text-black font-semibold rounded-full">
+            Subscribe Today
+          </button>
+        </div>
+      </div>
+
+      <div className="post-container w-full sm:px-0   sm:max-w-full  mt-4 border-r border-dark">
+        {[...new Array(7)].map((d, index) => (
+          <Post key={index} />
+        ))}
+      </div>
+      <div className="h-12 border-r border-dark"></div>
+    </div>
+  );
+};
+
+export default Feed;
