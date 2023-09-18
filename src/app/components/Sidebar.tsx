@@ -7,12 +7,12 @@ const Sidebar = () => {
   return (
     <header
       className=" hidden
-     sm:block sm:w-[12%] md:w-[22%]  relative top-0"
+     sm:block sm:w-[12%] md:w-[200px] lg:w-[300px]  relative top-0"
     >
       <div
         className=" hidden
-        sm:block fixed top-0 w-[12%] md:w-[22%] xl:w-[20%] overflow-y-scroll sm:pr-3 md:pr-5 lg:px-0
-       overflow-x-hidden lg:pl-0 lg:overflow-hidden lg:border-r h-screen border-dark "
+        sm:block fixed top-0 w-[12%] md:w-[200px] lg:w-[300px]  overflow-y-scroll sm:pr-3 md:pr-5 lg:px-0
+       overflow-x-hidden lg:pl-0 lg:overflow-hidden h-screen  "
       >
         <nav className="md:pl-0 -mr-2 ">
           <div className="logo pr-2 lg:pl-5 xl:pl-8 mt-1 flex justify-end lg:justify-start">
@@ -23,7 +23,7 @@ const Sidebar = () => {
               <li key={index} className="lg:px-7   mr-auto">
                 <Link
                   href={path}
-                  className="flex justify-end lg:justify-start  lg:px-1 xl:px-3 py-[9px] hover:bg-dark hover:rounded-full w-full lg:items-center"
+                  className="flex justify-end lg:justify-start  lg:px-1 xl:px-3 py-[9px] lg:hover:bg-dark  lg:hover:rounded-full l lg:items-center"
                 >
                   {image ? (
                     <Image
@@ -34,7 +34,7 @@ const Sidebar = () => {
                       className="sm:mr-3 md:mr-5 lg:mr-3 "
                     />
                   ) : (
-                    <Icon size={30} className=" md:mr-5 mr-3" />
+                    <Icon size={30} className=" md:mr-5 mr-3  " />
                   )}
                   <span className="font-normal text-xl hidden lg:block">
                     {name}

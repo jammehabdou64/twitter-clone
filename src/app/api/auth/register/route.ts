@@ -39,7 +39,7 @@ export const POST = async (request: NextRequest) => {
     const hashPassword: string = await bcrypt.hash(password, salt);
 
     const ramdom = (): string => {
-      return `${Math.random() * 1000}`;
+      return `${Math.floor(Math.random() * 1000)}`;
     };
 
     const newUser = new User({
@@ -49,16 +49,14 @@ export const POST = async (request: NextRequest) => {
       username: `${name.replace(/\s/g, "-")}-${ramdom()}`,
     });
 
-    const save = await newUser.save();
-    if (save) {
+    const savedUser = await newUser.save();
+    if (savedUser) {
       const response = NextResponse.json(
         { message: "User added succesfully", success: true },
         { status: 201 }
       );
       const tokenData = {
-        id: user?._id.toString(),
-        name: user?.name,
-        email: user?.email,
+        id: savedUser?._id.toString(),
       };
 
       const token = jwt.sign(tokenData, process.env.JWT_SECRET!, {

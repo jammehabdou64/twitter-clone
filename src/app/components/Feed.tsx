@@ -1,6 +1,6 @@
+"use client";
 import Image from "next/image";
-import React from "react";
-import { FaGlobe } from "react-icons/fa";
+import React, { useContext, useEffect, useState } from "react";
 import {
   MdOutlineEmojiEmotions,
   MdOutlineGifBox,
@@ -10,14 +10,57 @@ import {
   MdSyncAlt,
 } from "react-icons/md";
 import Post from "./Post";
+import axios from "axios";
+import { PostsContext } from "../context/PostsContext";
 
 const Feed = () => {
+  const [buttonDisable, setButtonDisable] = useState(true);
+  const [formData, setFormData] = useState({
+    text: "",
+  });
+
+  const {
+    state: { posts },
+    dispatch,
+  } = useContext(PostsContext);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const { data } = await axios.get("/api/posts");
+      if (data.success) {
+        dispatch({ type: "GET_ALL_POSTS", payload: data?.message });
+      }
+    };
+
+    getPosts();
+  }, []);
+
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setButtonDisable(false);
+    return setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const submit = async () => {
+    try {
+      const { data } = await axios.post("/api/posts", formData);
+      if (data.success) {
+        setFormData({ ...formData, text: "" });
+        return dispatch({ type: "SAVE_POST", payload: data.message });
+      }
+    } catch (error: any) {
+      console.log(error?.response);
+    }
+  };
+
   return (
-    <div className="w-full   sm:px-0   lg:w-[61%] md:w-[80%]  sm:w-[97%]  h-full ">
-      <h1 className=" hidden sm:block font-semibold text-xl px-4  pt-4 ml-1 border-r border-dark">
+    <div className="w-full sm:px-0   lg:w-[61%] md:w-[80%] border-r border-l  relative h-fit border-dark sm:w-[97%] lg:max-w-[600px]  ">
+      <h1 className=" hidden sm:block font-semibold text-xl px-4  pt-4 ml-1  border-dark">
         Home
       </h1>
-      <div className="flex  justify-around mt-14 sm:mt-6 border-b  border-r border-dark  sm:px-5 py-2">
+      <div className="flex  justify-around mt-14 sm:mt-6 border-b   border-dark  sm:px-5 py-2">
         <div className="selected-feed relative top-0 left-0 hover:bg-dark">
           <h6 className="font-medium selected-feed-header">For you</h6>
         </div>
@@ -28,8 +71,8 @@ const Feed = () => {
         </div>
       </div>
 
-      <div className="post-feed-container  border-r border-dark   border-b ">
-        <div className=" hidden sm:block px-4 py-2">
+      <div className="post-feed-container   border-dark   border-b ">
+        <div className="  px-4 py-2">
           <div className="post-feed p-2 flex gap-2">
             <Image
               alt="profile"
@@ -40,7 +83,12 @@ const Feed = () => {
             />
             <input
               placeholder="What is happening?!"
-              className="text-gray-500 bg-inherit text-lg sm:text-xl outline-none flex-1 py-2"
+              className={`${
+                buttonDisable ? "text-gray-500" : "text-white"
+              } " bg-inherit text-lg sm:text-xl outline-none flex-1 py-2  "`}
+              name="text"
+              value={formData.text}
+              onChange={inputChangeHandler}
             />
           </div>
           <div className="post-feed-text mb-4  border-gray-600 text-primary sm:pl-4 mx-7  text-sm font-bold">
@@ -79,19 +127,25 @@ const Feed = () => {
               />
             </div>
             <div className="">
-              <button className=" px-2 sm:px-4 py-1 rounded-full bg-primary opacity-30">
+              <button
+                onClick={submit}
+                disabled={buttonDisable}
+                className={`${
+                  buttonDisable ? "opacity-30" : ""
+                }  " px-2 sm:px-4 py-1 rounded-full bg-primary focus:outline-none"`}
+              >
                 post
               </button>
             </div>
           </div>
         </div>
       </div>
-      <h4 className="text-primary py-3 cursor-pointer  hover:bg-gray-950 border-b border-r border-dark text-center">
+      <h4 className="text-primary py-3 cursor-pointer  hover:bg-gray-950 border-b  border-dark text-center">
         Show 100 Tweets
       </h4>
 
-      <div className="sm:hidden py-6  px-[30px] border-b border-r  border-dark">
-        <h1 className="font-black text-[26px] leading-tight">
+      <div className="sm:hidden py-6  px-[30px] border-b   border-dark">
+        <h1 className="balance font-black text-[26px] leading-tight">
           You may be missing out on ads revenue sharing!
         </h1>
 
@@ -108,12 +162,13 @@ const Feed = () => {
         </div>
       </div>
 
-      <div className="post-container w-full sm:px-0   sm:max-w-full  mt-4 border-r border-dark">
-        {[...new Array(7)].map((d, index) => (
-          <Post key={index} />
+      <div className="post-container w-full sm:px-0   sm:max-w-full  mt-4  border-dark">
+        {posts.map((post, index) => (
+          <Post post={post} key={index} />
         ))}
       </div>
-      <div className="h-12 border-r border-dark"></div>
+
+      <div className="h-10"></div>
     </div>
   );
 };

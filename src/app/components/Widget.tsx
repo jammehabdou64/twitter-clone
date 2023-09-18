@@ -15,7 +15,7 @@ const Widget = () => {
   };
 
   return (
-    <div className="lg:w-[39%]  lg:block hidden  left-0 border-l border-gray-800 px-4 h-screen">
+    <div className="lg:w-[39%]  lg:block hidden  left-0  px-4 h-screen">
       <div className="w-full  mt-2">
         <div className="search-container rounded-full flex bg-dark items-center w-full p-2">
           <MdOutlineSearch size={27} className="text-gray-700 gap-3" />
