@@ -8,6 +8,66 @@ import {
   MdOutlineSync,
   MdOutlineVerified,
 } from "react-icons/md";
+import { UserContext } from "../context/UserContext";
+import axios from "axios";
+
+type PostType = {
+  _id: string;
+  author: {} | any;
+  text?: string;
+  image?: string;
+  description?: string;
+  likes: Array<any>;
+  comments: Array<any>;
+};
+
+const Post = ({ post }: { post: PostType }) => {
+  const {
+    state: { user },
+    dispatch,
+  } = useContext(UserContext);
+
+  const [like, setLike] = useState(false);
+
+  const auth: any = user;
+
+  const checkIfLike = (likes: Array<any>): boolean => {
+    console.log(likes);
+    let index: number = likes.findIndex((like) => like?.user?.id === auth?._id);
+    if (index > -1) {
+      setLike((prev) => !prev);
+      return true;
+    }
+    setLike((prev) => !prev);
+    return false;
+  };
+
+  // useEffect(() => {
+  //   const index = post?.likes.findIndex((like) => like?.user?.id === auth?._id);
+  //   if (index > -1) {
+  //     return setLike(true);
+  //   }
+  // }, [post]);
+
+  const numsOfComment = post.comments.length;
+  const [numsOfLikes, setNumOfLike] = useState(post.likes.length);
+
+  const submit = async (postId: string, likeType: string) => {
+    try {
+      setLike((prev) => !prev);
+      if (likeType === "like") {
+        setNumOfLike((prev) => prev + 1);
+        setLike((prev) => !prev);
+      }
+      if (likeType !== "like") {
+        setNumOfLike((prev) => prev - 1);
+      }
+      const { data } = await axios.patch("/api/posts/like", { postId, auth });
+      if (data.success) {
+        return dispatch({ type: "GET_ALL_POSTS", payload: data.message });
+      }
+    } catch (error) {}
+  };
 
 const Post = () => {
   const name = "Abdou Jammeh";
