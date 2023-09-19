@@ -56,7 +56,7 @@ const Feed = () => {
   };
 
   return (
-    <div className="w-full sm:px-0   lg:w-[61%] md:w-[80%] border-r border-l  relative h-fit border-dark sm:w-[97%] lg:max-w-[600px]  ">
+    <div className="w-full sm:px-0  overflow-hidden  lg:w-[61%] md:w-[80%] border-r border-l  relative h-fit border-dark sm:w-[97%] lg:max-w-[600px]  ">
       <h1 className=" hidden sm:block font-semibold text-xl px-4  pt-4 ml-1  border-dark">
         Home
       </h1>
