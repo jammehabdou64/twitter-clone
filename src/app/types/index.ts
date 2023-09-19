@@ -9,6 +9,8 @@ export type UserActionType = {
 
 export type PostStateType = {
   posts: Array<any>;
+  post: {} | any;
+  loading?: boolean;
 };
 
 export type PostActionType = {

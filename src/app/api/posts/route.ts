@@ -66,3 +66,29 @@ export const POST = async (request: NextRequest) => {
     NextResponse.json({ error: error?.message }, { status: 500 });
   }
 };
+
+export const PUT = async (request: NextRequest) => {
+  try {
+    if (!isAuthenticated(request)) {
+      return NextResponse.json(
+        {
+          message: "Unauthorize",
+          success: false,
+        },
+        { status: 403 }
+      );
+    }
+    const { id } = await request.json();
+    const post = await Post.findById(id).populate(
+      "author",
+      "name email username"
+    );
+
+    return NextResponse.json({
+      message: post,
+      success: true,
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error?.mesage }, { status: 500 });
+  }
+};

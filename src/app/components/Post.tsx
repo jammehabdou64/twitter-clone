@@ -14,6 +14,7 @@ import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { PostsContext } from "../context/PostsContext";
 import { ModalContext } from "../context/ModalContext";
+import Link from "next/link";
 
 type PostType = {
   _id: string;
@@ -34,25 +35,26 @@ const Post = ({ post }: { post: PostType }) => {
 
   const postState = useContext(PostsContext);
   const [like, setLike] = useState(false);
-  const numsOfComment = post.comments.length;
+  const numsOfComment = post?.comments?.length;
   const [numsOfLikes, setNumOfLike] = useState(0);
 
   const auth: any = user;
 
   useEffect(() => {
-    if (post.likes.length <= 0) {
+    if (post?.likes?.length < 1) {
       setLike(false);
-      return setNumOfLike(post.likes.length);
+      return setNumOfLike(post.likes?.length);
     }
 
-    const index = post?.likes.findIndex((like) => like?.user?.id === auth?._id);
+    const index = post?.likes?.findIndex(
+      (like) => like?.user?.id === auth?._id
+    );
     console.log(index);
     if (index > -1 || like) {
-      console.log(post.likes);
       setLike(true);
-      return setNumOfLike(post.likes.length);
+      return setNumOfLike(post?.likes.length);
     }
-  }, [post]);
+  }, []);
 
   const submit = async (postId: string, likeType: string) => {
     try {
@@ -89,7 +91,7 @@ const Post = ({ post }: { post: PostType }) => {
         <div className="flex-1">
           <div className="author flex items-center">
             <span className=" text-[15px] sm:text-base font-semibold">
-              {post?.author?.name.length > 15
+              {post?.author?.name?.length > 15
                 ? `${post?.author?.name.substring(0, 15)}...`
                 : post?.author?.name}
             </span>{" "}
@@ -109,7 +111,7 @@ const Post = ({ post }: { post: PostType }) => {
             {post?.description}
           </div>
           <div className="mt-4 w-full flex-1">
-            {post.image ? (
+            {post?.image ? (
               <Image
                 alt="post"
                 src={"/car.jpeg"}
@@ -118,7 +120,12 @@ const Post = ({ post }: { post: PostType }) => {
                 className="w-full max-h-[270px] md:max-h-[410px] object-cover rounded-xl sm:rounded-2xl"
               />
             ) : (
-              <div>{post.text}</div>
+              <Link
+                className="block"
+                href={`/${post?.author?.username}/post/${post?._id}`}
+              >
+                {post?.text}
+              </Link>
             )}
           </div>
           <div className="post-reactions mt-3 py-1 flex items-center  justify-between">

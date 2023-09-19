@@ -20,7 +20,7 @@ const Feed = () => {
   });
 
   const {
-    state: { posts },
+    state: { posts, loading },
     dispatch,
   } = useContext(PostsContext);
 
@@ -163,9 +163,13 @@ const Feed = () => {
       </div>
 
       <div className="post-container w-full sm:px-0   sm:max-w-full  mt-4  border-dark">
-        {posts.map((post, index) => (
-          <Post post={post} key={index} />
-        ))}
+        {loading ? (
+          <div className="animate-ping text-xl w-full flex mt-10 justify-center">
+            loading
+          </div>
+        ) : (
+          posts.map((post, index) => <Post post={post} key={index} />)
+        )}
       </div>
 
       <div className="h-10"></div>

@@ -3,6 +3,8 @@ import { PostStateType, PostActionType } from "../types";
 
 const initialState = {
   posts: [],
+  post: {},
+  loading: true,
 };
 
 export const PostsContext = createContext<{
@@ -19,12 +21,19 @@ const reducer = (state: PostStateType, action: PostActionType) => {
       return {
         ...state,
         posts: [...action.payload],
+        loading: false,
       };
 
     case "SAVE_POST":
       return {
         ...state,
         posts: [action.payload, ...state.posts],
+      };
+
+    case "SHOW_POST":
+      return {
+        ...state,
+        post: state.posts.filter((post) => post._id === action.payload, 0)[0],
       };
 
     default:

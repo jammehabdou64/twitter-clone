@@ -42,7 +42,7 @@ const Sidebar = () => {
                 </Link>
               </li>
             ))}
-            <li className=" flex justify-end lg:justify-start sm:mr-0 md:ml-0 md:px-5 my-3 sm:px-2 lg:px-7">
+            <li className=" flex justify-end lg:justify-start sm:mr-0 md:ml-0 md:px-5 my-3 sm:px-2 lg:px-9">
               <button className="bg-primary text-white p-1 lg:p-[15px] lg:w-full rounded-full">
                 post
               </button>

@@ -8,9 +8,13 @@ import { useContext, useEffect } from "react";
 import axios from "axios";
 import { UserContext } from "./context/UserContext";
 import CommentModal from "./components/CommentModal";
+import { ModalContext } from "./context/ModalContext";
 
 export default function Home() {
   const { dispatch } = useContext(UserContext);
+  const {
+    state: { showModal },
+  } = useContext(ModalContext);
   useEffect(() => {
     const getAuth = async () => {
       try {
@@ -26,7 +30,11 @@ export default function Home() {
   }, []);
   return (
     <>
-      <main className=" text-white    h-screen max-w-[90rem] lg:mx-auto flex font-blink relative top-0 ">
+      <main
+        className={` ${
+          showModal ? "overflow-hidden" : ""
+        }  text-white  h-screen max-w-[90rem] lg:mx-auto flex font-blink relative top-0 "`}
+      >
         {/* Mobile navigation */}
         <Topnav />
         {/* Comment modal */}
