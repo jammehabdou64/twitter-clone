@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
@@ -12,8 +13,8 @@ import {
   MdSyncAlt,
 } from "react-icons/md";
 import { ModalContext } from "../context/ModalContext";
-import { UserContext } from "../context/UserContext";
 import axios from "axios";
+import { PostsContext } from "../context/PostsContext";
 
 const CommentModal = () => {
   const {
@@ -21,11 +22,7 @@ const CommentModal = () => {
     dispatch,
   } = useContext(ModalContext);
 
-  const {
-    state: { user },
-  } = useContext(UserContext);
-
-  const author: any = user;
+  const postState = useContext(PostsContext);
 
   const [buttonDisable, setButtonDisable] = useState(true);
   const [formData, setFormData] = useState({
@@ -40,13 +37,18 @@ const CommentModal = () => {
     });
   };
 
-  const submit = async () => {
+  const submit = async (postId: string) => {
     try {
-      const { data } = await axios.post("/api/posts/commmets", formData);
+      const { data } = await axios.post("/api/posts/comments", {
+        comment: formData.comment,
+        postId,
+      });
       if (data.success) {
         setFormData({ ...formData, comment: "" });
-        // return dispatch({ type: "SAVE_POST", payload: data.message });
-        return;
+        return postState.dispatch({
+          type: "GET_ALL_POST",
+          payload: data.message,
+        });
       }
     } catch (error: any) {
       console.log(error?.response);
@@ -145,7 +147,7 @@ const CommentModal = () => {
             <input
               type="text"
               placeholder="Post your reply"
-              className="bg-inherit outline-none py-5 text-gray-600 px-2"
+              className="bg-inherit outline-none py-5 text-gray-200 px-2"
               name="comment"
               value={formData.comment}
               onChange={inputChangeHandler}
@@ -182,7 +184,7 @@ const CommentModal = () => {
           </div>
           <div className="">
             <button
-              onClick={submit}
+              onClick={() => submit(post?._id)}
               disabled={buttonDisable}
               className={`${
                 buttonDisable ? "opacity-30" : ""

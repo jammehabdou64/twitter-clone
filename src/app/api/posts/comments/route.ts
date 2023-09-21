@@ -4,7 +4,7 @@ import Post from "@/model/Post";
 import User from "@/model/User";
 import { NextRequest, NextResponse } from "next/server";
 
-const POST = async (request: NextRequest) => {
+export const POST = async (request: NextRequest) => {
   try {
     if (!isAuthenticated(request)) {
       return NextResponse.json(
@@ -41,6 +41,7 @@ const POST = async (request: NextRequest) => {
       username: user?.username,
     };
     post.comments.unshift({ user: newLike, text: comment });
+
     const saved = await post.save();
 
     if (saved) {

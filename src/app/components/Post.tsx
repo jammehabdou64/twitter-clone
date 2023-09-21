@@ -34,27 +34,35 @@ const Post = ({ post }: { post: PostType }) => {
   const modal = useContext(ModalContext);
 
   const postState = useContext(PostsContext);
-  const [like, setLike] = useState(false);
-  const numsOfComment = post?.comments?.length;
-  const [numsOfLikes, setNumOfLike] = useState(0);
 
   const auth: any = user;
 
-  useEffect(() => {
-    if (post?.likes?.length < 1) {
-      setLike(false);
-      return setNumOfLike(post.likes?.length);
-    }
-
+  const checkIfLike = (post: any, auth: any) => {
     const index = post?.likes?.findIndex(
-      (like) => like?.user?.id === auth?._id
+      (like: any) => like?.user?.id === auth?._id
     );
-    console.log(index);
-    if (index > -1 || like) {
-      setLike(true);
-      return setNumOfLike(post?.likes.length);
-    }
-  }, []);
+    return index > -1;
+  };
+
+  const [like, setLike] = useState(checkIfLike(post, auth));
+  const numsOfComment = post?.comments?.length;
+  const [numsOfLikes, setNumOfLike] = useState(post?.likes.length | 0);
+
+  // useEffect(() => {
+  //   if (post?.likes?.length < 1) {
+  //     setLike(false);
+  //     return setNumOfLike(post.likes?.length);
+  //   }
+
+  //   const index = post?.likes?.findIndex(
+  //     (like) => like?.user?.id === auth?._id
+  //   );
+  //   console.log(index);
+  //   if (index > -1 || like) {
+  //     setLike(true);
+  //     return setNumOfLike(post?.likes.length);
+  //   }
+  // }, []);
 
   const submit = async (postId: string, likeType: string) => {
     try {
@@ -77,30 +85,30 @@ const Post = ({ post }: { post: PostType }) => {
   };
 
   return (
-    <div className="post w-full px-4  sm:px-5 mb-4 border-b  border-dark pb-3">
-      <div className="flex gap-[6px] sm:gap-2">
+    <div className="post w-full px-3  sm:px-5 mb-4 border-b  border-dark pb-3">
+      <div className="flex gap-1 sm:gap-2">
         <div className="w-10 sm:w-14 md:w-10">
           <Image
             src={"/abdou.jpg"}
             alt="author-profile"
             width={70}
             height={70}
-            className="w-8 h-8  rounded-full"
+            className="sm:w-8 sm:h-8 h-7 w-7 rounded-full"
           />
         </div>
         <div className="flex-1">
           <div className="author flex items-center">
-            <span className=" text-[15px] sm:text-base font-semibold">
-              {post?.author?.name?.length > 15
-                ? `${post?.author?.name.substring(0, 15)}...`
+            <span className=" text-[15px] sm:text-base font-medium sm:font-semibold">
+              {post?.author?.name?.length > 12
+                ? `${post?.author?.name.substring(0, 12)}...`
                 : post?.author?.name}
             </span>{" "}
             <span className="mx-1">
               <MdOutlineVerified className="text-primary" />
             </span>
             <span className="text-sm sm:text-[15px] text-gray-500">
-              {post?.author?.username.length > 15
-                ? `${post?.author?.username.substring(0, 15)}...`
+              {post?.author?.username.length > 12
+                ? `${post?.author?.username.substring(0, 12)}...`
                 : post?.author?.username}
             </span>
             <span className=" text-[15px] sm:text-base font-normal sm:font-medium text-gray-500 ml-1">

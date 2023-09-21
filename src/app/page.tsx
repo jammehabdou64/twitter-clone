@@ -11,23 +11,10 @@ import CommentModal from "./components/CommentModal";
 import { ModalContext } from "./context/ModalContext";
 
 export default function Home() {
-  const { dispatch } = useContext(UserContext);
   const {
     state: { showModal },
   } = useContext(ModalContext);
-  useEffect(() => {
-    const getAuth = async () => {
-      try {
-        const { data } = await axios.get("/api/auth/me");
-        if (data.success) {
-          dispatch({ type: "GET_AUTH", payload: data.message });
-        }
-      } catch (error: any) {
-        console.log(error);
-      }
-    };
-    getAuth();
-  }, []);
+
   return (
     <>
       <main

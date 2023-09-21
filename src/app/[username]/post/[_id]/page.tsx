@@ -63,14 +63,13 @@ export default function ShowPost({ params }: any) {
 
   const submit = async (postId: string) => {
     try {
-      const { data } = await axios.post("/api/posts/commmets", {
+      const { data } = await axios.post("/api/posts/comments", {
         comment: formData.comment,
         postId,
       });
       if (data.success) {
         setFormData({ ...formData, comment: "" });
-        return dispatch({ type: "SAVE_POST", payload: data.message });
-        return;
+        return dispatch({ type: "GET_ALL_POST", payload: data.message });
       }
     } catch (error: any) {
       console.log(error?.response);
@@ -91,7 +90,7 @@ export default function ShowPost({ params }: any) {
         <CommentModal />
         {/*  */}
         <Sidebar />
-        <div className="flex flex-1  sm:px-0 w-full sm:w-[88%] md:w-[80%] pt-4 mt-5 relative top-0 h-full">
+        <div className="flex flex-1  sm:px-0 w-full sm:w-[88%] md:w-[80%] mt-8 pt-10 sm:pt-4 sM:mt-5 relative top-0 h-full">
           <div className="w-full sm:px-0  overflow-hidden  lg:w-[61%] md:w-[80%] border-r border-l  relative h-screen border-dark sm:w-[97%] lg:max-w-[600px]  ">
             {loading ? (
               <div className="animate-ping text-xl w-full pt-4 flex mt-10 justify-center">
@@ -100,7 +99,13 @@ export default function ShowPost({ params }: any) {
             ) : (
               <Post post={post} />
             )}
-            <div className="flex items-center border-b px-4 py-2 border-dark">
+            <div
+              className={`${
+                loading
+                  ? "hidden"
+                  : "flex items-center border-b px-4 py-2 border-dark"
+              }`}
+            >
               <div className="w-10 sm:w-14 md:w-10">
                 <Image
                   src={"/abdou.jpg"}

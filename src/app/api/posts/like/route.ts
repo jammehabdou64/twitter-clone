@@ -1,6 +1,8 @@
 import { connect } from "@/db/connection";
 import { isAuthenticated } from "@/helpers";
+import { getAuth } from "@/helpers/getAuth";
 import Post from "@/model/Post";
+import User from "@/model/User";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
@@ -17,12 +19,28 @@ export const PATCH = async (request: NextRequest) => {
       );
     }
 
-    const { postId, auth } = await request.json();
+    const id = await getAuth(request);
+    if (!id) {
+      const response = NextResponse.json({
+        message: "Authorization expired",
+        success: false,
+      });
+
+      response.cookies.set("token", "", {
+        httpOnly: true,
+        expires: new Date(0),
+      });
+      return response;
+    }
+
+    const user = await User.findById(id);
+
+    const { postId } = await request.json();
 
     const post = await Post.findById(postId);
 
     const index = post.likes?.findIndex(
-      (like: any) => like?.user?.id === auth._id
+      (like: any) => like?.user?.id === user?._id
     );
 
     if (index > -1) {
@@ -38,9 +56,9 @@ export const PATCH = async (request: NextRequest) => {
     }
 
     const newLike = {
-      name: auth?.name,
-      id: auth?._id,
-      username: auth?.username,
+      name: user?.name,
+      id: user?._id,
+      username: user?.username,
     };
     post.likes.unshift({ user: newLike });
     const saved = await post.save();

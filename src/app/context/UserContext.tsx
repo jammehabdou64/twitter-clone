@@ -15,7 +15,7 @@ export const UserContext = createContext<{
 
 const reducer = (state: UserStateType, action: UserActionType) => {
   switch (action.type) {
-    case "GET_AUTH":
+    case "SET_AUTH":
       return {
         ...state,
         user: action.payload,

@@ -20,6 +20,10 @@ const config: Config = {
         "primary-light": "rgba(29, 156, 240, 0.185)",
         "primary-lighter": "rgba(91, 112, 131, 0.4)",
       },
+      boxShadow: {
+        light:
+          " rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px;",
+      },
     },
   },
   plugins: [],
