@@ -14,9 +14,12 @@ function LogoutModal({ auth }: { auth: AuthType }) {
     return router.push("/login");
   };
   return (
-    <div className="bg-black absolute -top-24  shadow-light z-50">
-      <div className="py-4 px-2  min-w-[275px] text-sm font h-24 flex flex-col ">
-        <Link href={"#"}> Add an existing account</Link>
+    <div className="bg-black absolute -top-24 left-0  shadow-light z-50">
+      <div className="py-2 px-3  min-w-[275px] text-sm font h-24 flex flex-col ">
+        <Link href={"#"} className="mt-2">
+          {" "}
+          Add an existing account
+        </Link>
 
         <Link
           href={"/logout"}
@@ -24,7 +27,7 @@ function LogoutModal({ auth }: { auth: AuthType }) {
             e.preventDefault();
             return logout();
           }}
-          className="mt-3"
+          className="mt-6 "
         >
           Logout @{auth.username}
         </Link>

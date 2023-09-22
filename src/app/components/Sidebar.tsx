@@ -85,11 +85,8 @@ const Sidebar = () => {
             </div>
             <div
               onClick={() => setModal((prev) => !prev)}
-              className="flex cursor-pointer relative top-0 right-0 left-0 mt-5 pt-2 justify-end py-[10px] gap-2 sm:px-3 md:px-5 mr-3 sm:mr-0 lg:justify-start"
+              className="flex cursor-pointer relative top-0 right-0 left-0 mt-5 lg:ml-3 pt-2 justify-end py-[10px] gap-2 sm:px-3 md:px-5 mr-3 sm:mr-0 lg:justify-start"
             >
-              <div className={`${showModal ? "block" : "hidden"}`}>
-                <LogoutModal auth={auth} />
-              </div>
               <Image
                 src={"/abdou.jpg"}
                 alt="profile"
@@ -100,6 +97,9 @@ const Sidebar = () => {
               <div className="hidden lg:block">
                 <p>{auth.name}</p>
                 <p className="text-sm text-gray-500">@{auth?.username}</p>
+              </div>
+              <div className={`${showModal ? "block" : "hidden"}`}>
+                <LogoutModal auth={auth} />
               </div>
             </div>
           </nav>

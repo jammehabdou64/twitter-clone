@@ -59,7 +59,7 @@ const CommentModal = () => {
     <div
       className={`${
         showModal
-          ? "block absolute  top-0 w-full bg-primary-light p-2 z-40 h-screen overflow-hidden"
+          ? "block absolute  top-0 w-full bg-primary-lighter p-2 z-40 h-screen overflow-hidden"
           : "hidden"
       }`}
     >
