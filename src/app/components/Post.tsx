@@ -15,6 +15,7 @@ import axios from "axios";
 import { PostsContext } from "../context/PostsContext";
 import { ModalContext } from "../context/ModalContext";
 import Link from "next/link";
+import Moment from "react-moment";
 
 type PostType = {
   _id: string;
@@ -24,6 +25,7 @@ type PostType = {
   description?: string;
   likes: Array<any>;
   comments: Array<any>;
+  createdAt?: string;
 };
 
 const Post = ({ post }: { post: PostType }) => {
@@ -96,7 +98,7 @@ const Post = ({ post }: { post: PostType }) => {
                 : post?.author?.username}
             </span>
             <span className=" text-[15px] sm:text-base font-normal sm:font-medium text-gray-500 ml-1">
-              -12h
+              -<Moment fromNow>{post?.createdAt}</Moment>
             </span>
           </div>
           <div className="descriptions text-[12.5px] sm:text-sm">
