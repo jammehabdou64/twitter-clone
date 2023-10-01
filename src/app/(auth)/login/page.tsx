@@ -69,7 +69,10 @@ const Login = () => {
           </h1>
 
           <div className="google_auth mt-2 pt-1">
-            <button className="flex items-center justify-center gap-2 w-full border p-2 bg-white  border-gray-500 rounded-full">
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 w-full border p-2 bg-white  border-gray-500 rounded-full"
+            >
               <Image
                 src={"/google.svg"}
                 alt="google"
@@ -83,7 +86,10 @@ const Login = () => {
             </button>
           </div>
           <div className="apple_auth mt-4  pt-1">
-            <button className="flex items-center justify-center gap-2 w-full border p-2  border-gray-500 bg-white rounded-full">
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 w-full border p-2  border-gray-500 bg-white rounded-full"
+            >
               <Image
                 src={"/apple.svg"}
                 alt="google"
@@ -121,7 +127,10 @@ const Login = () => {
             />
           </div>
           <div className="mt-5">
-            <button className="bg-white text-gray-900 font-bold py-2 px-4 rounded-full w-full ">
+            <button
+              disabled={buttonDisable}
+              className="bg-white text-gray-900 font-bold py-2 px-4 rounded-full w-full "
+            >
               Sign in
             </button>
           </div>
@@ -132,8 +141,8 @@ const Login = () => {
           </div>
           <div className="text-gray-600 mt-7 pb-8">
             <p>
-              Don't have an account{" "}
-              <Link href={"/register"} className="text-primary ">
+              Don't have an account?
+              <Link href={"/register"} className="text-primary mx-1 ">
                 sign up
               </Link>
             </p>

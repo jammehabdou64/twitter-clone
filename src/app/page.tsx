@@ -4,9 +4,7 @@ import Widget from "./components/Widget";
 import Sidebar from "./components/Sidebar";
 import Topnav from "./components/Topnav";
 import Feed from "./components/Feed";
-import { useContext, useEffect } from "react";
-import axios from "axios";
-import { UserContext } from "./context/UserContext";
+import { useContext } from "react";
 import CommentModal from "./components/CommentModal";
 import { ModalContext } from "./context/ModalContext";
 

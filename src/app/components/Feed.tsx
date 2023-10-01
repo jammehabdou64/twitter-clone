@@ -33,7 +33,7 @@ const Feed = () => {
     };
 
     getPosts();
-  }, []);
+  }, [dispatch]);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setButtonDisable(false);
@@ -76,7 +76,7 @@ const Feed = () => {
           <div className="post-feed p-2 flex gap-2">
             <Image
               alt="profile"
-              src={"/abdou.jpg"}
+              src={"/image.png"}
               width={60}
               height={60}
               className="sm:w-10 sm:h-10 w-7 object-center h-7 rounded-full"

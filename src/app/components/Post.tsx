@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   MdOutlineComment,
   MdOutlineFavoriteBorder,
@@ -48,22 +48,6 @@ const Post = ({ post }: { post: PostType }) => {
   const numsOfComment = post?.comments?.length;
   const [numsOfLikes, setNumOfLike] = useState(post?.likes.length | 0);
 
-  // useEffect(() => {
-  //   if (post?.likes?.length < 1) {
-  //     setLike(false);
-  //     return setNumOfLike(post.likes?.length);
-  //   }
-
-  //   const index = post?.likes?.findIndex(
-  //     (like) => like?.user?.id === auth?._id
-  //   );
-  //   console.log(index);
-  //   if (index > -1 || like) {
-  //     setLike(true);
-  //     return setNumOfLike(post?.likes.length);
-  //   }
-  // }, []);
-
   const submit = async (postId: string, likeType: string) => {
     try {
       if (likeType === "like") {
@@ -89,7 +73,7 @@ const Post = ({ post }: { post: PostType }) => {
       <div className="flex gap-1 sm:gap-2">
         <div className="w-10 sm:w-14 md:w-10">
           <Image
-            src={"/abdou.jpg"}
+            src={"/image.png"}
             alt="author-profile"
             width={70}
             height={70}

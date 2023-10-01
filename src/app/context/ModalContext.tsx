@@ -1,16 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import { ModalActionType, ModalType } from "../types";
 
-// type PostType = {
-//   _id: string;
-//   author: {} | any;
-//   text?: string;
-//   image?: string;
-//   description?: string;
-//   likes: Array<any>;
-//   comments: Array<any>;
-// };
-
 const initialState = {
   showModal: false,
   post: {},

@@ -10,8 +10,10 @@ type AuthType = {
 function LogoutModal({ auth }: { auth: AuthType }) {
   const router = useRouter();
   const logout = async () => {
-    const { data } = await axios.get("/api/auth/logout");
-    return router.push("/login");
+    try {
+      const { data } = await axios.get("/api/auth/logout");
+      return router.push("/login");
+    } catch (error) {}
   };
   return (
     <div className="bg-black absolute -top-24 left-0  shadow-light z-50">
