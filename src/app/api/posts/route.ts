@@ -17,7 +17,7 @@ export const GET = async (request: NextRequest) => {
       );
     }
     const posts = await Post.find({})
-      .populate("author", "name email username")
+      .populate("author", "-password")
       .sort({ createdAt: "desc" });
     return NextResponse.json({
       message: posts,
@@ -43,14 +43,15 @@ export const POST = async (request: NextRequest) => {
     }
     const post = new Post();
     const req = await request.json();
+    const authorId = await getAuth(request);
 
-    if (req.text) {
+    if (req.text && authorId) {
       post.text = req.text;
-      post.author = await getAuth(request);
+      post.author = authorId;
       const savedPost = await post.save();
       const newPost = await Post.findById(savedPost?._id.toString()).populate(
         "author",
-        "name email username"
+        "-password"
       );
       return savedPost
         ? NextResponse.json(
