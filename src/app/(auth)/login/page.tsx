@@ -64,51 +64,9 @@ const Login = () => {
         </div>
         <form action="" className="w-[330px] py-4  mx-auto" onSubmit={submit}>
           <Toaster />
-          <h1 className="font-black text-3xl">
+          <h1 className="font-black text-3xl py-4">
             Sign in to <span>X</span>
           </h1>
-
-          <div className="google_auth mt-2 pt-1">
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 w-full border p-2 bg-white  border-gray-500 rounded-full"
-            >
-              <Image
-                src={"/google.svg"}
-                alt="google"
-                width={50}
-                height={50}
-                className="w-4 h-4"
-              />
-              <span className="text-sm text-gray-800">
-                Sign in with Google{" "}
-              </span>
-            </button>
-          </div>
-          <div className="apple_auth mt-4  pt-1">
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 w-full border p-2  border-gray-500 bg-white rounded-full"
-            >
-              <Image
-                src={"/apple.svg"}
-                alt="google"
-                width={50}
-                height={50}
-                className="w-4 h-4"
-              />
-              <span className=" font-bold text-gray-800">
-                Sign in with Apple{" "}
-              </span>
-            </button>
-          </div>
-
-          <div className="py-2 text-center mt-4">
-            <hr className="border-gray-500" />
-            <div className="-mt-3 flex justify-center ">
-              <p className="text-center w-9 text-s bg-black font-medium">or</p>
-            </div>
-          </div>
 
           <div>
             <input
